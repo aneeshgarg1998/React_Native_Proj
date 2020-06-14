@@ -7,11 +7,63 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
+import About from './AboutComponent';
 import { Icon } from 'react-native-elements';
 
 const MenuNavigator = createStackNavigator();
 const HomeNavigator = createStackNavigator();
+const ContactNavigator = createStackNavigator();
+const AboutUsNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
+
+const navOption = {
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+        color: "#fff"            
+    }
+};
+
+function homeStackNavigator() {
+    return(
+        <HomeNavigator.Navigator initialRouteName = "Home">
+            <HomeNavigator.Screen name = "Home" component={Home}
+                options = { navOption } />
+        </HomeNavigator.Navigator>
+    );
+};
+
+function menuStackNavigator() {
+    return(
+        <MenuNavigator.Navigator initialRouteName="Menu">
+            <MenuNavigator.Screen name="Menu" component={Menu} 
+                options= { navOption }/>
+            <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} 
+                options= { navOption }/>
+        </MenuNavigator.Navigator>
+    );
+};
+
+function contactStackNavigator() {
+    return(
+        <ContactNavigator.Navigator initialRouteName = "Contact">
+            <ContactNavigator.Screen name = "Contact" component={ Contact }
+                options = { navOption } />
+        </ContactNavigator.Navigator>
+    );
+};
+
+function aboutUsStackNavigator() {
+    return(
+        <AboutUsNavigator.Navigator initialRouteName = "About">
+            <AboutUsNavigator.Screen name = "About" component={ About }
+                options = { navOption } />
+        </AboutUsNavigator.Navigator>
+    );
+};
 
 class Main extends Component {
   constructor(props) {
@@ -27,36 +79,6 @@ class Main extends Component {
 }
 
   render() {
-
-    const nav_option = {
-        headerStyle: {
-            backgroundColor: "#512DA8"
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            color: "#fff"            
-        }
-    };
-
-    function home_stack_navigator() {
-        return(
-            <HomeNavigator.Navigator initialRouteName = "Home">
-                <HomeNavigator.Screen name = "Home" component={Home}
-                    options = { nav_option } />
-            </HomeNavigator.Navigator>
-        );
-    };
-
-    function menu_stack_navigator() {
-        return(
-            <MenuNavigator.Navigator initialRouteName="Menu">
-                <MenuNavigator.Screen name="Menu" component={Menu} 
-                    options= { nav_option }/>
-                <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} 
-                    options= { nav_option }/>
-            </MenuNavigator.Navigator>
-        );
-    };
   
     return (
         <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
@@ -65,8 +87,10 @@ class Main extends Component {
                     drawerStyle={{
                         backgroundColor: '#D1C4E9'
                     }}>
-                    <HomeNavigator.Screen name = "Home" component={ home_stack_navigator } />
-                    <MenuNavigator.Screen name = "Menu" component={ menu_stack_navigator } />
+                    <HomeNavigator.Screen name = "Home" component={ homeStackNavigator } />
+                    <AboutUsNavigator.Screen name = "About Us" component={ aboutUsStackNavigator } />
+                    <MenuNavigator.Screen name = "Menu" component={ menuStackNavigator } />
+                    <ContactNavigator.Screen name = "Contact Us" component={ contactStackNavigator } />
                 </MainNavigator.Navigator>
             </NavigationContainer>
         </View>
