@@ -1,9 +1,8 @@
 import * as ActionTypes from './ActionTypes';
-import { baseURL } from '../shared/baseURL';
-import { comments } from './commetns';
+import { baseUrl } from '../shared/baseURL';
 
 export const fetchComments = () => (dispatch) => {
-    return fetch(baseURL + 'comments')
+    return fetch(baseUrl + 'comments')
     .then(response => {
         if(response.ok)
             return response;
